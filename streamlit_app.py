@@ -26,13 +26,8 @@ st.write("Environment variable `APP_CONFIG_KEY` is:", os.getenv("APP_CONFIG_KEY"
 # Read authentication config from Azure BLOB storage
 auth_config = blob.read_authentication_config().decode("utf-8")
 auth_config = yaml.safe_load(auth_config)
-authenticator = stauth.Authenticate(
-    auth_config['credentials'],
-    auth_config['cookie']['name'],
-    auth_config['cookie']['key'],
-    auth_config['cookie']['expiry_days'],
-    auth_config['preauthorized']
-)
+
+authenticator = stauth.Authenticate(auth_config['credentials'], auth_config['cookie']['name'],auth_config['cookie']['key'],auth_config['cookie']['expiry_days'],auth_config['preauthorized'])
 
 # Simple graphics with Streamlit
 
