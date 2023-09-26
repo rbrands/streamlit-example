@@ -2,7 +2,7 @@ altair
 pandas
 streamlit
 python-dotenv
-streamlit-authenticator
+streamlit-authenticator==0.2.3
 azure-storage-blob
 azure-identity
 pyyaml

@@ -27,7 +27,6 @@ st.write("Environment variable `APP_CONFIG_KEY` is:", os.getenv("APP_CONFIG_KEY"
 auth_config = blob.read_authentication_config().decode("utf-8")
 auth_config = yaml.safe_load(auth_config)
 
-st.info(auth.__spec__)
 st.info(dir(auth))
 
 authenticator = auth.Authenticate(
