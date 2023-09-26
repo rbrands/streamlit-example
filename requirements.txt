@@ -2,3 +2,6 @@ altair
 pandas
 streamlit
 python-dotenv
+streamlit-authenticator
+azure-storage-blob
+azure-identity

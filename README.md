@@ -5,6 +5,13 @@ Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
 If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
 forums](https://discuss.streamlit.io).
 
+## Introduction
+This repo is a fork of https://github.com/streamlit/streamlit-example to show:
+- How to host a Streamlit-App easily in Azure via App Service
+- Usage of very simple authentication.
+- Usage of Azure services e.g. Blob-storage with the Python SDK.
+- Pythen/Streamlit development mit GitHub Codespaces
+
 ## Setup
 Install Miniconda to create a virtual Python environment: https://conda.io/en/latest/miniconda.html
 Open Anaconda prompt and navigate to the directory of the local repo and enter:
@@ -24,6 +31,25 @@ The workfow 'master_rbrands-streamlit-example.yml' shows how to setup a CI/CD pi
     
     python -m streamlit run streamlit_app.py --server.port 8000 --server.address 0.0.0.0
 
+Create a Managed Identity for the App Service.
+
+### Authentication
+For demonstration the package streamlit-authentication is used for simple austhentication. See https://github.com/mkhorasani/Streamlit-Authenticator for details. Follow these steps to config the authentication:
+- Create a local version of config.yaml and add some user accounts. 
+- The init-passwords must be hashed. 
+
+Create a Python command line and use the following commands:
+
+    import streamlit_authenticator as stauth
+    stauth.Hasher(['initpassword-to-be-hashed']).generate()
+
+### Blob storage
+Create a Blob storage account in Azure, create a container (e.g. name "streamlit-example") and copy the config file to this container. Assign the container in "Access Control (IAM)" the role assignment "Storage Blob Data Contributor" to your developer account and the Managed Identity of the App Service.
+
+Install in Visual Studio Code the Azure Developer CLI tools to get the authentication for the Blob storage activated. Call Ctrl-Shift-P and "Sign in with Azure Developer CLI" to sign in with a browser window.
+
+About using Blob storage with Python see https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python
+
 ## Running the application
 Open Anaconda prompt and navigate to the directory of the local repo and enter:
     conda activate streamlit-example
@@ -33,3 +59,4 @@ Run the application with the following command:
     streamlit run streamlit_app.py
 
 The application will open in a webrowser window at http://localhost:8501/
+For an ready-to-use installed version use https://rbrands-streamlit-example.azurewebsites.net/. Login with username "joe" and password "password"
