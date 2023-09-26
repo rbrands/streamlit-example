@@ -7,7 +7,7 @@ import streamlit as st
 from dotenv import load_dotenv, find_dotenv
 import blob
 import yaml
-import streamlit_authenticator as stauth
+import streamlit_authenticator as auth
 
 """
 # Welcome to Streamlit!
@@ -27,7 +27,9 @@ st.write("Environment variable `APP_CONFIG_KEY` is:", os.getenv("APP_CONFIG_KEY"
 auth_config = blob.read_authentication_config().decode("utf-8")
 auth_config = yaml.safe_load(auth_config)
 
-authenticator = stauth.Authenticate(
+st.warning(dir(auth))
+
+authenticator = auth.Authenticate(
     auth_config['credentials'], 
     auth_config['cookie']['name'],
     auth_config['cookie']['key'],
@@ -67,14 +69,14 @@ Username/passwords are stored in a config file in blob storage.
 """
 
 authenticator.login('Login', 'main')
-if stauth.st.session_state["authentication_status"]:
+if auth.st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'main', key='logout_unique_key')
-    stauth.st.write(f'Welcome *{st.session_state["name"]}*')
-    stauth.st.title('Protected Content')
+    auth.st.write(f'Welcome *{st.session_state["name"]}*')
+    auth.st.title('Protected Content')
     """
     This part of the page is only visible if the user has been authenticated.
     """
-elif stauth.st.session_state["authentication_status"] is False:
-    stauth.st.error('Username/password is incorrect')
-elif stauth.st.session_state["authentication_status"] is None:
-    stauth.st.warning('Please enter your username and password')
+elif auth.st.session_state["authentication_status"] is False:
+    auth.st.error('Username/password is incorrect')
+elif auth.st.session_state["authentication_status"] is None:
+    auth.st.warning('Please enter your username and password')
