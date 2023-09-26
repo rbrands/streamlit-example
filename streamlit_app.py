@@ -5,6 +5,9 @@ import math
 import pandas as pd
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
+import blob
+import yaml
+import streamlit_authenticator as stauth
 
 """
 # Welcome to Streamlit!
@@ -19,6 +22,19 @@ In the meantime, below is an example of what you can do with just a few lines of
 # Read environment configuration. See https://github.com/theskumar/python-dotenv
 load_dotenv(find_dotenv(), override=False)
 st.write("Environment variable `APP_CONFIG_KEY` is:", os.getenv("APP_CONFIG_KEY"))    
+
+# Read authentication config from Azure BLOB storage
+auth_config = blob.read_authentication_config().decode("utf-8")
+auth_config = yaml.safe_load(auth_config)
+authenticator = stauth.Authenticate(
+    auth_config['credentials'],
+    auth_config['cookie']['name'],
+    auth_config['cookie']['key'],
+    auth_config['cookie']['expiry_days'],
+    auth_config['preauthorized']
+)
+
+# Simple graphics with Streamlit
 
 with st.echo(code_location='below'):
     total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
@@ -40,3 +56,24 @@ with st.echo(code_location='below'):
     st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
         .mark_circle(color='#0068c9', opacity=0.5)
         .encode(x='x:Q', y='y:Q'))
+    
+"""
+## Simple authentication
+
+Demo how to implement a very simple authentication mechanism: 
+Username/passwords are stored in a config file in blob storage.
+
+"""
+
+authenticator.login('Login', 'main')
+if stauth.st.session_state["authentication_status"]:
+    authenticator.logout('Logout', 'main', key='unique_key')
+    stauth.st.write(f'Welcome *{st.session_state["name"]}*')
+    stauth.st.title('Protected Content')
+    """
+    This part of the page is only visible if the user has been authenticated.
+    """
+elif stauth.st.session_state["authentication_status"] is False:
+    stauth.st.error('Username/password is incorrect')
+elif stauth.st.session_state["authentication_status"] is None:
+    stauth.st.warning('Please enter your username and password')
