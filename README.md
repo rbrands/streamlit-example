@@ -24,6 +24,16 @@ The workfow 'master_rbrands-streamlit-example.yml' shows how to setup a CI/CD pi
     
     python -m streamlit run streamlit_app.py --server.port 8000 --server.address 0.0.0.0
 
+### Authentication
+For demonstration the package streamlit-authentication is used for simple austhentication. See https://github.com/mkhorasani/Streamlit-Authenticator for details. Follow these steps to config the authentication:
+- Create a local version of config.yaml and add some user accounts. 
+- The init-passwords must be hashed. 
+
+Create a Python command line and use the following commands:
+
+    import streamlit_authenticator as stauth
+    stauth.Hasher(['initpassword-to-be-hashed'])
+
 ## Running the application
 Open Anaconda prompt and navigate to the directory of the local repo and enter:
     conda activate streamlit-example
