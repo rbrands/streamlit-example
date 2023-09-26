@@ -41,12 +41,14 @@ For demonstration the package streamlit-authentication is used for simple austhe
 Create a Python command line and use the following commands:
 
     import streamlit_authenticator as stauth
-    stauth.Hasher(['initpassword-to-be-hashed'])
+    stauth.Hasher(['initpassword-to-be-hashed']).generate()
 
 ### Blob storage
 Create a Blob storage account in Azure, create a container (e.g. name "streamlit-example") and copy the config file to this container. Assign the container in "Access Control (IAM)" the role assignment "Storage Blob Data Contributor" to your developer account and the Managed Identity of the App Service.
 
 Install in Visual Studio Code the Azure Developer CLI tools to get the authentication for the Blob storage activated. Call Ctrl-Shift-P and "Sign in with Azure Developer CLI" to sign in with a browser window.
+
+About using Blob storage with Python see https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python
 
 ## Running the application
 Open Anaconda prompt and navigate to the directory of the local repo and enter:
@@ -57,3 +59,4 @@ Run the application with the following command:
     streamlit run streamlit_app.py
 
 The application will open in a webrowser window at http://localhost:8501/
+For an ready-to-use installed version use https://rbrands-streamlit-example.azurewebsites.net/. Login with username "joe" and password "password"

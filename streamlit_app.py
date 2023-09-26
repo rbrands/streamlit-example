@@ -67,7 +67,7 @@ Username/passwords are stored in a config file in blob storage.
 
 authenticator.login('Login', 'main')
 if stauth.st.session_state["authentication_status"]:
-    authenticator.logout('Logout', 'main', key='unique_key')
+    authenticator.logout('Logout', 'main', key='logout_unique_key')
     stauth.st.write(f'Welcome *{st.session_state["name"]}*')
     stauth.st.title('Protected Content')
     """

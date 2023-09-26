@@ -4,6 +4,8 @@ from dotenv import load_dotenv, find_dotenv
 import os
 
 # Read YAML config file for authentication
+# See https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python
+
 def read_authentication_config():
     account_url = os.getenv("BLOB_ACCOUNT_URL", "https://rbrandswebstorage.blob.core.windows.net/")
     container_name = "streamlit-example"
