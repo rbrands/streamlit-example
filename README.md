@@ -10,7 +10,8 @@ This repo is a fork of https://github.com/streamlit/streamlit-example to show:
 - How to host a Streamlit-App easily in Azure via App Service
 - Usage of very simple authentication.
 - Usage of Azure services e.g. Blob-storage with the Python SDK.
-- Pythen/Streamlit development mit GitHub Codespaces
+- Streamlit File Uploader to blob storage
+- Python/Streamlit development mit GitHub Codespaces
 
 ## Setup
 Install Miniconda to create a virtual Python environment: https://conda.io/en/latest/miniconda.html

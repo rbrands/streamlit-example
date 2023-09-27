@@ -8,6 +8,7 @@ from dotenv import load_dotenv, find_dotenv
 import blob
 import yaml
 import streamlit_authenticator as auth
+from io import StringIO
 
 """
 # Welcome to Streamlit!
@@ -74,6 +75,10 @@ if auth.st.session_state["authentication_status"]:
     """
     This part of the page is only visible if the user has been authenticated.
     """
+    uploaded_file = st.file_uploader('Upload File', accept_multiple_files=False)
+    if uploaded_file is not None:
+        bytes_data = uploaded_file.getvalue()
+        blob.write_blob(uploaded_file.name, bytes_data)
 elif auth.st.session_state["authentication_status"] is False:
     auth.st.error('Username/password is incorrect')
 elif auth.st.session_state["authentication_status"] is None:
