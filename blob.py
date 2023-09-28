@@ -6,12 +6,12 @@ import os
 # See https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python
 
 # Read and write YAML config file for authentication
+account_url = os.getenv("BLOB_ACCOUNT_URL", "https://rbrandswebstorage.blob.core.windows.net/")
+container_name = "streamlit-example"
+config_blob_name = "config.yaml"
+default_credential = DefaultAzureCredential()
 
 def read_authentication_config():
-    account_url = os.getenv("BLOB_ACCOUNT_URL", "https://rbrandswebstorage.blob.core.windows.net/")
-    container_name = "streamlit-example"
-    config_blob_name = "config.yaml"
-    default_credential = DefaultAzureCredential()
     # Create the BlobServiceClient object
     blob_service_client = BlobServiceClient(account_url, credential=default_credential)
     container_client = blob_service_client.get_container_client(container=container_name)
@@ -19,11 +19,6 @@ def read_authentication_config():
     return config
 
 def write_authentication_config(config):
-    account_url = os.getenv("BLOB_ACCOUNT_URL", "https://rbrandswebstorage.blob.core.windows.net/")
-    container_name = "streamlit-example"
-    config_blob_name = "config.yaml"
-    default_credential = DefaultAzureCredential()
-
     # Create the BlobServiceClient object
     blob_service_client = BlobServiceClient(account_url, credential=default_credential)
     container_client = blob_service_client.get_container_client(container=container_name)
@@ -32,20 +27,12 @@ def write_authentication_config(config):
 # Read and write a blob from/to configured storage container
 
 def read_blob(blob_name):
-    account_url = os.getenv("BLOB_ACCOUNT_URL", "https://rbrandswebstorage.blob.core.windows.net/")
-    container_name = "streamlit-example"
-    default_credential = DefaultAzureCredential()
-
     blob_service_client = BlobServiceClient(account_url, credential=default_credential)
     container_client = blob_service_client.get_container_client(container=container_name)
     content = container_client.download_blob(blob_name).readall()
     return content
 
 def write_blob(blob_name, content):    
-    account_url = os.getenv("BLOB_ACCOUNT_URL", "https://rbrandswebstorage.blob.core.windows.net/")
-    container_name = "streamlit-example"
-    default_credential = DefaultAzureCredential()
-
     blob_service_client = BlobServiceClient(account_url, credential=default_credential)
     container_client = blob_service_client.get_container_client(container=container_name)
     content = container_client.upload_blob(blob_name, content, overwrite=True)
