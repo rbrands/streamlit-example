@@ -68,10 +68,10 @@ Username/passwords are stored in a config file in blob storage.
 """
 
 authenticator.login('Login', 'main')
-if auth.st.session_state["authentication_status"]:
+if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'main', key='logout_unique_key')
-    auth.st.write(f'Welcome *{st.session_state["name"]}*')
-    auth.st.title('Protected Content')
+    st.write(f'Welcome *{st.session_state["name"]}*')
+    st.title('Protected Content')
     """
     This part of the page is only visible if the user has been authenticated.
     """
@@ -79,7 +79,7 @@ if auth.st.session_state["authentication_status"]:
     if uploaded_file is not None:
         bytes_data = uploaded_file.getvalue()
         blob.write_blob(uploaded_file.name, bytes_data)
-elif auth.st.session_state["authentication_status"] is False:
-    auth.st.error('Username/password is incorrect')
-elif auth.st.session_state["authentication_status"] is None:
-    auth.st.warning('Please enter your username and password')
+elif st.session_state["authentication_status"] is False:
+    st.error('Username/password is incorrect')
+elif st.session_state["authentication_status"] is None:
+    st.warning('Please enter your username and password')
