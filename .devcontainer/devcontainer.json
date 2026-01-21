@@ -19,7 +19,6 @@
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "ms-vscode.azure-account",
         "ms-vscode.azurecli",
         "ms-azuretools.azure-dev",
         "GitHub.copilot",
